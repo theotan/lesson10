@@ -20,5 +20,8 @@ func Hypernym(baseword string) (string, error) {
 	if baseword == "cat" {
 		return "animal", nil
 	}
+	if baseword == "cow" {
+		return "animal", nil
+	}
 	return "", &UnknownWordError{Word: baseword}
 }
