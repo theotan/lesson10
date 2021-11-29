@@ -14,10 +14,17 @@ pipeline {
 		sh './hypernyms/hypernyms'
 	    }
 	}
+	stage('unit tests') {
+	    steps {
+		sh 'go install github.com/jstemmer/go-junit-report@latest'
+		sh 'cd hypernyms ; go test -v vocab | ~/go/bin/go-junit-report > ../unit-tests.xml'
+	    }
+	}	
     }
     post {
 	always {
 	    archiveArtifacts artifacts: 'hypernyms/hypernyms', fingerprint: true
+	    junit 'unit-tests.xml'
 	}
     }
 }
